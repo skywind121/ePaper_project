@@ -24,6 +24,6 @@ for i in range(0,14,2):
 	count = count+1
 
 #test data	
-'''for j in range(0,7):
+for j in range(0,7):
 	print("Date:" + futureDate[j] + " Temp:" + futureTemp[j] 
-	+ "°C Humi:" + futureHumi[j] + "% Weather:" + futureWea[j])'''
+	+ "°C Humi:" + futureHumi[j] + "% Weather:" + futureWea[j])
