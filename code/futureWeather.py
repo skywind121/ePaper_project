@@ -15,12 +15,14 @@ futureDate = [0]*7
 futureTemp = [0]*7
 futureHumi = [0]*7
 futureWea = [0]*7
+futureWeaIcon = [0]*7
 count = 0
 for i in range(0,14,2):
 	futureDate[count] = (tempCatch[i]["startTime"])[5:10]
 	futureTemp[count] = tempCatch[i]["elementValue"][0]["value"]
 	futureHumi[count] = humiCatch[i]["elementValue"][0]["value"]
 	futureWea[count] = weatherCatch[i]["elementValue"][0]["value"]
+	futureWeaIcon[count] = weatherCatch[i]["elementValue"][1]["value"]
 	count = count+1
 
 #test data	

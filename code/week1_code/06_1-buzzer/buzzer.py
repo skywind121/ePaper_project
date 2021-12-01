@@ -20,8 +20,8 @@ try:
 except NameError:
     pass
 
-buzzer_pin = 12
-GPIO.setmode(GPIO.BOARD)
+buzzer_pin = 16
+GPIO.setmode(GPIO.BCM)
 GPIO.setup(buzzer_pin, GPIO.OUT)
 
 def buzz(pitch, duration) :

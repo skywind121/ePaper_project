@@ -1,9 +1,11 @@
 import RPi.GPIO as GPIO
 import time
+from test import playSong
+
 
 GPIO.setmode(GPIO.BCM) #使用的編碼函式庫
-TRIGGER_PIN = 23
-ECHO_PIN = 24
+TRIGGER_PIN = 21
+ECHO_PIN = 20
 GPIO.setup(TRIGGER_PIN, GPIO.OUT) #將trigger(Pin 23)設置為輸出
 GPIO.setup(ECHO_PIN, GPIO.IN) #將ECHO(Pin 24)設置為輸入
 GPIO.output(TRIGGER_PIN, GPIO.LOW) #trigger(Pin 23)輸出低電位
@@ -40,6 +42,8 @@ try:
     while True:
         distance = measure_average()
         print ("Distance: %.1f (cm)" % distance)
+        if(distance < 30):
+            test.playSong()
         time.sleep(1)
 
 except KeyboardInterrupt:

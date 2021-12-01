@@ -1,0 +1,59 @@
+./ngrok http 8000 -host-header="localhost:8000" -region ap
+python /home/pi/ePaper_project/mylinebot/manage.py runserver
+
+
+
+        """
+        text = event.message.text
+        
+        if changeName == True:
+            sheet.update_acell('B1', text)
+            changeName = False
+            message = TextSendMessage(text=f'已將姓名修改為 - {text}')
+            line_bot_api.reply_message(event.reply_token, message)
+        elif changeJobTitle == True:
+            sheet.update_acell('B2', text)
+            changeJobTitle = False
+            message = TextSendMessage(text=f'已將職稱修改為 - {text}')
+            line_bot_api.reply_message(event.reply_token, message)
+        elif changeStatus == True:
+            sheet.update_acell('B3', text)
+            changeStatus = False
+            message = TextSendMessage(text=f'已將狀態修改為 - {text}')
+            line_bot_api.reply_message(event.reply_token, message)
+        elif changeEmail == True:
+            sheet.update_acell('B4', text)
+            changeEmail = False
+            message = TextSendMessage(text=f'已將Email修改為 - {text}')
+            line_bot_api.reply_message(event.reply_token, message)
+        elif changeRow5 == True:
+            sheet.update_acell('B5', text)
+            changeRow5 = False
+            message = TextSendMessage(text=f'已將留言修改為 - {text}')
+            line_bot_api.reply_message(event.reply_token, message)
+        else:
+            if text == "!name":
+                changeName = True
+                message = TextMessage(text="請輸入想要修改的姓名")
+                line_bot_api.reply_message(event.reply_token, message)
+            elif text == "!job":
+                changeJobTitle = True
+                message = TextMessage(text="請輸入想要修改的職稱")
+                line_bot_api.reply_message(event.reply_token, message)
+            elif text == "!status":
+                changeStatus = True
+                message = TextMessage(text="請輸入想要修改的狀態")
+                line_bot_api.reply_message(event.reply_token, message)
+            elif text == "!email":
+                changeEmail = True
+                message = TextMessage(text="請輸入想要修改的Email")
+                line_bot_api.reply_message(event.reply_token, message)
+            elif text == "!comment":
+                changeRow5 = True
+                message = TextMessage(text="請輸入想要修改的留言")
+                line_bot_api.reply_message(event.reply_token, message)
+            else:
+                #sheet.append_row((1, 2, 3, 4, 5))
+                message = TextSendMessage(text="請輸入正確的指令")
+                line_bot_api.reply_message(event.reply_token, message)
+        """
