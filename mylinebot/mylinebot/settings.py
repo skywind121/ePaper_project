@@ -32,7 +32,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'localhost',
-    'd3fc-118-167-254-109.ap.ngrok.io',  #允許的網域名稱
+    '127.0.0.1',
+    '3275-2402-7500-587-a6a5-ff66-3c6e-4897-4a21.ap.ngrok.io',  #允許的網域名稱
 ]
 
 
@@ -116,13 +117,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Taipei'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)

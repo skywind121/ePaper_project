@@ -2,7 +2,6 @@
 python /home/pi/ePaper_project/mylinebot/manage.py runserver
 
 
-
         """
         text = event.message.text
         

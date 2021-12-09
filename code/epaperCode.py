@@ -34,6 +34,10 @@ import json
 jDataName = 'jsonData.json'
 with open(jDataName, 'r') as file_object:
     jData=json.load(file_object)
+LineDataName = '/home/pi/ePaper_project/mylinebot/ePaperLineBot/lineData.json'
+with open(LineDataName, 'r') as line_object:
+    LineData=json.load(line_object)
+    
 global sName
 sName = jData["ShowName"]
 global sJobPosition
@@ -42,6 +46,8 @@ global sStatus
 sStatus = jData["Status"]
 global sEmail
 sEmail = jData["email"]
+global sNewMess 
+sNewMess = jData["newMessageNum"]
 
 #clean ePaper 
 def clearPaper():
@@ -90,10 +96,10 @@ def page1():
     draw.text((600, 225), sStatus, font = font60, fill = 0)
     draw.text((10, 387), sEmail, font = font30, fill = 255)
     draw.text((10, 438), '國立臺灣海洋大學資訊工程學系', font = font30, fill = 0)
-    if( jData['newMessageNum'] <=9):
-        draw.text((618, 78), str(jData['newMessageNum']), font = font24, fill = 0)
+    if( int(LineData["newMessNum"]) <=9):
+        draw.text((618, 78), str(LineData["newMessNum"]), font = font24, fill = 0)
     else:
-        draw.text((608, 78), str(jData['newMessageNum']), font = font24, fill = 0)
+        draw.text((608, 78), str(LineData["newMessNum"]), font = font24, fill = 0)
     
     draw.text((20, 40), datetime.today().strftime('%Y') + '年', font = font30, fill = 0)
     draw.text((125, 40), datetime.today().strftime('%m') + '月', font = font30, fill = 0)
@@ -193,10 +199,13 @@ try:
     font18 = ImageFont.truetype(os.path.join(picdir, 'Font3.ttc'), 18)   
     
     page1()        
+    global page
     page = 1
+    nowPageCheck = 0
     while True:
         input = GPIO.input(BTN_PIN)
         currentTime = time.time()
+        
         
         #讀取linebotData的Json
         time.sleep(0.1)
@@ -219,17 +228,39 @@ try:
             elif page == 3:
                 page3()
                 watchMessage()
-            
+            changePage(page)
         previousStatus = input
         
+        if ((LineData["nowPage"] == 1) & (nowPageCheck != 1) ):
+            page1()
+            page = 1
+            nowPageCheck = 1
+        elif ((LineData["nowPage"] == 2) & (nowPageCheck != 2) ): 
+            page2()
+            page = 2
+            nowPageCheck = 2
+        elif ((LineData["nowPage"] == 3) & (nowPageCheck != 3) ):
+            page3()
+            page = 3
+            nowPageCheck = 3
+            watchMessage()
+        
         #Linebot修改門牌資料後，進行更新
-        if( (sName!= LineData["SaveName"]) | (sJobPosition!= LineData["saveJobPosition"]) | (sStatus!= LineData["saveStatus"]) | (sEmail!= LineData["saveEmail"])):
+        if( (sName!= LineData["SaveName"]) | (sJobPosition!= LineData["saveJobTitle"]) | (sStatus!= LineData["saveStatus"]) | (sEmail!= LineData["saveEmail"]) ):
             sName = LineData["SaveName"]
-            sJobPosition = LineData["saveJobPosition"]
+            sJobPosition = LineData["saveJobTitle"]
             sStatus = LineData["saveStatus"]
             sEmail = LineData["saveEmail"]
-            page = 1
+            getDoorPlate(sName, sJobPosition, sStatus, sEmail)
             page1()
+            page = 1
+            changePage(page)
+        if ((sNewMess!= LineData["newMessNum"]) & (page != 3) ):
+            sNewMess = LineData["newMessNum"]
+            page1()
+            page = 1
+            getData()
+            changePage(page)
     
 except IOError as e:
     logging.info(e)
@@ -237,6 +268,7 @@ except IOError as e:
 #使用Ctrl+C打斷程式後，清除電子紙    
 except KeyboardInterrupt:    
     print("Exception: KeyboardInterrupt")
+    firstPage()
     clearPaper()   
     logging.info("Goto Sleep...")
     epd.sleep()

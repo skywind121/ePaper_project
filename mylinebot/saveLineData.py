@@ -1,11 +1,17 @@
 import json
 
-def saveData(sName,sJobPosition,sStatus,sEmail):
+def saveData(sName, sJobTitle, sStatus, sEmail, pageShow, newMessNum):
 	linejdata = {	"SaveName": sName,
-					"saveJobPosition": sJobPosition,
+					"saveJobTitle": sJobTitle,
 					"saveStatus": sStatus,
-					"saveEmail": sEmail
+					"saveEmail": sEmail,
+					"nowPage": pageShow,
+					"newMessNum": int(newMessNum)
 				}
 	with open('/home/pi/ePaper_project/mylinebot/ePaperLineBot/lineData.json', 'w', encoding = 'utf-8') as f:
 		json.dump(linejdata, f, ensure_ascii=False)
+	'''with open('D:\Desktop\IndependentStudy\mylinebot\ePaperLineBot\lineData.json', 'w', encoding = 'utf-8') as f:
+		json.dump(linejdata, f, ensure_ascii=False)'''
+
+
 

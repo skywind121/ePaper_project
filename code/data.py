@@ -17,7 +17,7 @@ Sheet = GoogleSheets.open_by_key('1zMuXhbn8SfMWMmP1taeaz850dPxOOdTQPJdW1QkxQp0')
 sheet = Sheet.sheet1
 
 def getData():
-	global jobPosition,showName,nowStatus,mark,email,newMessageNum 
+	global jobPosition,showName,nowStatus,mark,email, pageNum,newMessageNum 
 	#讀取名牌資訊
 	jobPosition = sheet.acell('B2').value
 	showName = sheet.acell('B1').value
@@ -25,6 +25,7 @@ def getData():
 	email = sheet.acell('B4').value
 	mark = sheet.acell('C8').value
 	markInt = int(mark)
+	pageNum = sheet.acell('B5').value
 	newMessageNum = int(sheet.acell('C6').value)
 	
 	
@@ -44,12 +45,39 @@ def getData():
 		messCount = messCount + 1
 	saveJson(newMessageNum)
 	
+def firstPage():
+	sheet.update_acell('B5', '1')
+	
+def getDoorPlate(newName, newJob, newStatus, newMail):
+	global jobPosition,showName,nowStatus,mark,email, pageNum,newMessageNum 
+	pageNum = sheet.acell('B5').value
+	newMessageNum = int(sheet.acell('C6').value)
+	showName = newName
+	jobPosition = newJob
+	nowStatus = newStatus
+	email = newMail
+	saveJson(newMessageNum)
+
 def watchMessage():
 	newMessageNum = 0
 	sheet.update_acell('C6', newMessageNum)
 	saveJson(newMessageNum)
-	#print("0:" + newMessageNum)
 	
+	linejdata = {	"SaveName": showName,
+					"saveJobTitle": jobPosition,
+					"saveStatus": nowStatus,
+					"saveEmail": email,
+					"nowPage": pageNum,
+					"newMessNum": newMessageNum
+				}
+	with open('/home/pi/ePaper_project/mylinebot/ePaperLineBot/lineData.json', 'w', encoding = 'utf-8') as f:
+		json.dump(linejdata, f, ensure_ascii=False)
+	
+	#print("0:" + newMessageNum)
+
+def changePage(pageNum):
+	sheet.update_acell('B5', str(pageNum))
+
 def saveJson(newMessageNum):
 	jData = {	
 			"ShowName": str(showName),
@@ -75,7 +103,7 @@ def saveJson(newMessageNum):
 			}
 	with open('jsonData.json', 'w', encoding = 'utf-8') as f:
 		json.dump(jData, f, ensure_ascii=False)
-	print(newMessageNum)
+	#print(newMessageNum)
 	
 try:
 	getData()
