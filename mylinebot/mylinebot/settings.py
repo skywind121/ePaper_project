@@ -33,7 +33,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    '3275-2402-7500-587-a6a5-ff66-3c6e-4897-4a21.ap.ngrok.io',  #允許的網域名稱
+    'd377-118-160-10-74.ap.ngrok.io',  #允許的網域名稱
 ]
 
 

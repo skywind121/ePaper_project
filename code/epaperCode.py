@@ -214,7 +214,7 @@ try:
             LineData=json.load(line_object)
         with open(jDataName, 'r') as file_object:
             jData=json.load(file_object)
-            
+        
         #按鈕更換頁面
         if input == GPIO.LOW and previousStatus == GPIO.HIGH and (currentTime - previousTime) > WAIT_TIME:
             previousTime = currentTime

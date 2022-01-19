@@ -243,6 +243,10 @@ def callback(request):
                                     URITemplateAction(
                                         label='電子紙簡易教學影片',
                                         uri='https://www.youtube.com/watch?v=QU4LxcYIbuE&loop=0'
+                                    ),
+                                    URITemplateAction(
+                                        label='本專題使用電子門牌 Demo 影片',
+                                        uri='https://www.youtube.com/watch?v=PYQZwgQVwiU&loop=0'
                                     )
                                 ]
                             )

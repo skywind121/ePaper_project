@@ -1,3 +1,4 @@
+cd ePaper_project
 git add .
 git commit -m .
 git push
