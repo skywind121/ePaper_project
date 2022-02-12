@@ -10,5 +10,6 @@
 
 ![system](https://user-images.githubusercontent.com/46217270/145419696-7b689377-b815-42d3-b0e6-ce4f6bcf3734.png)
 
-#Demo影片
-https://studio.youtube.com/video/PYQZwgQVwiU/edit
+# Demo影片
+[![Watch the video](https://img.youtube.com/vi/PYQZwgQVwiU/default.jpg)](https://youtu.be/PYQZwgQVwiU)
+
